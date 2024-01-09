@@ -1,26 +1,64 @@
 {
-  "name": "backend",
-  "version": "1.0.0",
-  "description": "",
-  "main": "dist/index.js",
-  "type": "module",
-  "scripts": {
-    "dev": "tsc-watch --onSuccess \"node .\" ",
-    "test": "vitest",
-    "build": "tsc",
-    "start": "node ."
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "@types/express": "^4.17.21",
-    "@types/node": "^20.10.7",
-    "tsc-watch": "^6.0.4",
-    "typescript": "^5.3.3"
-  },
-  "dependencies": {
-    "express": "^4.18.2",
-    "vitest": "^1.1.3"
-  }
+    "name": "backend",
+    "version": "1.0.0",
+    "description": "",
+    "main": "dist/index.js",
+    "type": "module",
+    "scripts": {
+        "dev": "tsc-watch --onSuccess \"node .\" ",
+        "test": "vitest",
+        "build": "tsc",
+        "lint": "eslint . --ext .ts",
+        "start": "node ."
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+        "@types/express": "^4.17.21",
+        "@types/node": "^20.10.7",
+        "@typescript-eslint/eslint-plugin": "^6.18.1",
+        "@typescript-eslint/parser": "^6.18.1",
+        "eslint": "^8.56.0",
+        "prettier": "3.1.1",
+        "tsc-watch": "^6.0.4",
+        "typescript": "^5.3.3"
+    },
+    "dependencies": {
+        "express": "^4.18.2",
+        "vitest": "^1.1.3"
+    },
+    "eslintConfig": {
+        "extends": [
+            "eslint:recommended",
+            "plugin:@typescript-eslint/recommended"
+        ],
+        "parser": "@typescript-eslint/parser",
+        "plugins": [
+            "@typescript-eslint"
+        ],
+        "root": true,
+        "rules": {
+            "@typescript-eslint/explicit-function-return-type": "error",
+            "@typescript-eslint/naming-convention": "warn",
+            "@typescript-eslint/no-duplicate-enum-values": "error",
+            "@typescript-eslint/sort-type-constituents": "error",
+            "no-array-constructor": "off",
+            "@typescript-eslint/no-array-constructor": "warn"
+        }
+    },
+    "prettier": {
+        "printWidth": 80,
+        "tabWidth": 4,
+        "useTabs": false,
+        "semi": false,
+        "singleQuote": false,
+        "quoteProps": "consistent",
+        "trailingComma": "none",
+        "bracketSpacing": true,
+        "arrowParens": "always",
+        "parser": "typescript",
+        "proseWrap": "always",
+        "endOfLine": "lf"
+    }
 }
