@@ -39,7 +39,6 @@
         ],
         "root": true,
         "rules": {
-            "@typescript-eslint/explicit-function-return-type": "error",
             "@typescript-eslint/naming-convention": "warn",
             "@typescript-eslint/no-duplicate-enum-values": "error",
             "@typescript-eslint/sort-type-constituents": "error",
@@ -54,7 +53,7 @@
         "semi": false,
         "singleQuote": false,
         "quoteProps": "consistent",
-        "trailingComma": "none",
+        "trailingComma": "es5",
         "bracketSpacing": true,
         "arrowParens": "always",
         "parser": "typescript",
