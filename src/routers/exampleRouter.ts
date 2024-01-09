@@ -1,12 +1,9 @@
 import { Router } from "express";
-import ExampleController from "../controllers/exampleController.js";
-import { exampleService } from "../instances.js";
-
-const controller = new ExampleController(exampleService);
+import { exampleController } from "../instances.js";
 
 const router = Router();
 
-// use bind to make sure the controller function keeps controller as 'this'
-router.get("example", controller.getExamples.bind(controller));
+// use bind to make sure the method keeps the controller as 'this'
+router.get("/example", exampleController.getExamples.bind(exampleController));
 
 export default router;
