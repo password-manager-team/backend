@@ -6,6 +6,6 @@ const app = express();
 // Config
 
 // Routes
-app.use(exampleRouter);
+app.use("/api", exampleRouter);
 
 export default app;
