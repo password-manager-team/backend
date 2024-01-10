@@ -1,7 +1,7 @@
 import type { RedisClientType } from "redis"
 
 type SessionData = {
-  // userID/email and other relevant data associated with the session goes here
+  userID: string
 }
 
 class SessionStore {

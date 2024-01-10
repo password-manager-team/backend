@@ -12,7 +12,7 @@ const db = null
 const redisClient = await new Redis({ url: REDIS_URL }).connect()
 
 // Stores
-const sessionStore = new SessionStore(redisClient)
+export const sessionStore = new SessionStore(redisClient)
 
 // Models
 export const exampleModel = new ExampleModel(db)
