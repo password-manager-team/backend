@@ -1,26 +1,25 @@
 import type { Request, Response, NextFunction } from "express"
-import { createClient } from "redis"
-import config from "../config.js"
+import { sessionStore } from "../instances.js"
 
-const { REDIS_URL } = config;
-
-export async function authMiddleware(
+export async function authGuard(
     req: Request,
     res: Response,
     next: NextFunction
 ) {
-    // Check if sessionID exists
-    const cookie: string = req.cookies.sessionID
-    if (!cookie) return res.sendStatus(401)
+    // Validate the sessionID cookie
+    const { sessionID } = req.cookies
+    if (typeof sessionID !== "string") {
+        return res.status(401).json({ error: "Invalid sessionID" })
+    }
 
-    // Connect to redis
-    const client = createClient({ url: REDIS_URL })
-    client.on("error", () => res.sendStatus(500))
-    await client.connect()
+    // Retrieve the session data from a Redis store
+    const sessionData = await sessionStore.getSession(sessionID)
+    if (!sessionData) {
+        return res.status(401).json({ error: "Invalid sessionID" })
+    }
 
-    // Check if the cookie is valid
-    const cookieResponse = await client.get(cookie)
-    if (!cookieResponse) return res.status(401).send("Invalid cookie")
+    // Pass the userID to the subsequent middlewares
+    res.locals.userID = sessionData.userID
 
     next()
 }
