@@ -1,10 +1,5 @@
 import "dotenv/config";
 
-type Env = {
-  NODE_ENV: string;
-  REDIS_URL?: string;
-};
-
 // Remove the undefined from each key
 type Config = {
   [K in keyof Env]-?: Env[K];
@@ -23,9 +18,20 @@ function sanitizeConfig(env: Env): Config {
   return env as Config;
 }
 
+type Env = {
+  NODE_ENV: string;
+  REDIS_URL?: string;
+  POSTGRES_USER?: string;
+  POSTGRES_PASSWORD?: string;
+  POSTGRES_DB?: string;
+};
+
 const config = sanitizeConfig({
   NODE_ENV: "development",
   REDIS_URL: process.env.REDIS_URL,
+  POSTGRES_USER: process.env.POSTGRES_USER,
+  POSTGRES_PASSWORD: process.env.POSTGRES_PASSWORD,
+  POSTGRES_DB: process.env.POSTGRES_DB,
 });
 
 export default config;
