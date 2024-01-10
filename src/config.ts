@@ -5,6 +5,7 @@ type Env = {
   REDIS_URL?: string;
 };
 
+// Remove the undefined from each key
 type Config = {
   [K in keyof Env]-?: Env[K];
 };
@@ -24,7 +25,7 @@ function sanitizeConfig(env: Env): Config {
 
 const config = sanitizeConfig({
   NODE_ENV: "development",
-  REDIS_URL: process.env.REDIS_URL
+  REDIS_URL: process.env.REDIS_URL,
 });
 
 export default config;
