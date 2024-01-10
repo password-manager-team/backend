@@ -1,7 +1,8 @@
 import type { Request, Response, NextFunction } from "express"
 import { createClient } from "redis"
+import config from "../config.js"
 
-const REDISURL = process.env.REDISURL
+const { REDIS_URL } = config;
 
 export async function authMiddleware(
     req: Request,
@@ -13,7 +14,7 @@ export async function authMiddleware(
     if (!cookie) return res.sendStatus(401)
 
     // Connect to redis
-    const client = createClient({ url: REDISURL })
+    const client = createClient({ url: REDIS_URL })
     client.on("error", () => res.sendStatus(500))
     await client.connect()
 
