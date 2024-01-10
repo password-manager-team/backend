@@ -36,7 +36,7 @@ git clone git@github.com:password-manager-team/backend.git
 #### 2. Navigate to the project directory
 
 ```bash
-cd password-manager-backend
+cd backend
 ```
 
 #### 3. Setup docker (only once)
