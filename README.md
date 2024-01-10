@@ -63,7 +63,13 @@ docker-compose up
 npm install
 ```
 
-#### 6. Run the application
+#### 6. Create a .env file
+
+```bash
+cp .env.example .env
+```
+
+#### 7. Run the application
 
 ```bash
 npm run dev
