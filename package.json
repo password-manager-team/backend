@@ -20,6 +20,7 @@
         "@types/node": "^20.10.7",
         "@typescript-eslint/eslint-plugin": "^6.18.1",
         "@typescript-eslint/parser": "^6.18.1",
+        "@types/morgan": "^1.9.9",
         "eslint": "^8.56.0",
         "prettier": "3.1.1",
         "tsc-watch": "^6.0.4",
@@ -30,6 +31,7 @@
         "cookie-parser": "^1.4.6",
         "dotenv": "^16.3.1",
         "express": "^4.18.2",
+        "morgan": "^1.10.0",
         "redis": "^4.6.12"
     },
     "eslintConfig": {
