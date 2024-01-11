@@ -6,18 +6,29 @@ import SessionStore from "./stores/sessionStore.js"
 import Redis from "./db/redis.js"
 import AuthController from "./controllers/authController.js"
 import AuthService from "./services/AuthService.js"
+import Postgres from "./db/postgres.js"
 
 const { REDIS_URL } = config
 
 // Db
-const db = null
+const db: DBType = {
+    host: config.POSTGRES_HOST,
+    user: config.POSTGRES_USER,
+    password: config.POSTGRES_PASSWORD,
+    database: config.POSTGRES_DB,
+    port: parseInt(config.POSTGRES_PORT)
+}
+
 const redisClient = await new Redis({ url: REDIS_URL }).connect()
 
 // Stores
 export const sessionStore = new SessionStore(redisClient)
 
+// Postgres
+export const postgresConn = new Postgres(db);
+
 // Models
-export const exampleModel = new ExampleModel(db)
+export const exampleModel = new ExampleModel(postgresConn)
 
 // Services
 export const exampleService = new ExampleService(exampleModel)
