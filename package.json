@@ -9,6 +9,7 @@
         "test": "vitest",
         "build": "tsc",
         "lint": "eslint . --ext .ts",
+        "format": "prettier --write src/**/*.ts",
         "start": "node ."
     },
     "keywords": [],
