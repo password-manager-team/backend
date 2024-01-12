@@ -7,18 +7,20 @@ class AuthController {
 
     async register(req: Request, res: Response) {
         const schema = z.object({
-            email: z.string().email(),
-            passwordHash: z.string(), // TODO: validate length
-            passwordHint: z.string().min(1).max(32),
+            body: z.object({
+                email: z.string().email().min(6).max(254),
+                passwordHash: z.string(), // TODO: validate length once we know the password length and hashing algorithm
+                passwordHint: z.string().min(1).max(32),
+            }),
         })
 
-        const validationResult = schema.safeParse({})
+        const validationResult = schema.safeParse(req)
 
         if (!validationResult.success) {
             return res.status(422).json({ error: "Invalid data" })
         }
 
-        const { email, passwordHash, passwordHint } = validationResult.data
+        const { email, passwordHash, passwordHint } = validationResult.data.body
 
         const user = await this.authService.register(
             email,
