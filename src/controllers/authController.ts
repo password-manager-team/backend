@@ -1,18 +1,24 @@
 import type { Request, Response } from "express"
 import type AuthService from "../services/AuthService.js"
+import { z } from "zod"
 
 class AuthController {
     constructor(private authService: AuthService) {}
 
     async register(req: Request, res: Response) {
-        // TODO: req.body schema validation
-        // email: string, passwordHash: string, passwordHint: string
+        const schema = z.object({
+            email: z.string().email(),
+            passwordHash: z.string(), // TODO: validate length
+            passwordHint: z.string().min(1).max(32),
+        })
 
-        // replace code below with
-        // const { email, passwordHash, passwordHint } = validatedData
-        const email = "TODO"
-        const passwordHash = "TODO"
-        const passwordHint = "TODO"
+        const validationResult = schema.safeParse({})
+
+        if (!validationResult.success) {
+            return res.status(422).json({ error: "Invalid data" })
+        }
+
+        const { email, passwordHash, passwordHint } = validationResult.data
 
         const user = await this.authService.register(
             email,
