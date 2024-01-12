@@ -1,14 +1,11 @@
-import type Postgres from "../db/postgres.js";
+import type { PoolClient } from "pg";
 
 class ExampleModel {
-  constructor(private postgresConn: Postgres) {}
+  constructor(private postgresClient: PoolClient) {}
 
   async getExampleData() {
     try {
-      const client = await this.postgresConn.getPool().connect();
-      const res = await client.query("SELECT * FROM TEST");
-      // query the database and return the data
-      //const data = ["foo", "bar", "baz"];
+      const res = await this.postgresClient.query("SELECT * FROM TEST");
       return res.rows;
       
     } catch (e) {
