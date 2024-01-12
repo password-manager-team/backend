@@ -1,12 +1,15 @@
+import type { PoolClient } from "pg";
+
 class ExampleModel {
-  constructor(private db: unknown) {}
+  constructor(private postgresClient: PoolClient) {}
 
   async getExampleData() {
     try {
-      // query the database and return the data
-      const data = ["foo", "bar", "baz"];
-      return data;
+      const res = await this.postgresClient.query("SELECT * FROM TEST");
+      return res.rows;
+      
     } catch (e) {
+      console.log(e);
       return null;
     }
   }
