@@ -17,8 +17,8 @@ export class Postgres {
         const queryResults = await Promise.all([
             client.query(`
                 CREATE TABLE IF NOT EXISTS Test(
-                    id serial not null primary key,
-                    name varchar(32)
+                    id SERIAL NOT NULL PRIMARY KEY,
+                    name VARCHAR(32)
                 );
                 DELETE FROM Test;
                 INSERT INTO Test (name) values ('My name 1');
