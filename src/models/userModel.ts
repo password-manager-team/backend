@@ -10,7 +10,7 @@ class UserModel {
     ) {
         try {
             await this.postgresClient.query(
-                "INSERT into Users (email, password_hash, password_hint) VALUES ($1, $2, $3)",
+                "INSERT INTO Users (email, password_hash, password_hint) VALUES ($1, $2, $3)",
                 [email, passwordHash, passwordHint]
             )
             return true

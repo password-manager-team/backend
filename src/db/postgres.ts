@@ -21,8 +21,8 @@ export class Postgres {
                     name VARCHAR(32)
                 );
                 DELETE FROM Test;
-                INSERT INTO Test (name) values ('My name 1');
-                INSERT INTO Test (name) values ('My name 2');
+                INSERT INTO Test (name) VALUES ('My name 1');
+                INSERT INTO Test (name) VALUES ('My name 2');
             `),
             client.query(`
                 CREATE TABLE IF NOT EXISTS Users(
