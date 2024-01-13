@@ -1,18 +1,14 @@
+import type UserModel from "../models/userModel.js"
 import type SessionStore from "../stores/sessionStore.js"
 
 class AuthService {
     constructor(
-        private userModel: unknown,
+        private userModel: UserModel,
         private sessionStore: SessionStore
     ) {}
 
     async register(email: string, passwordHash: string, passwordHint: string) {
-        // TODO: check if email is not in use
-
-        // TODO: create the user
-
-        // TODO: return the user
-        return null
+        return this.userModel.createUser(email, passwordHash, passwordHint)
     }
 
     async login(email: string, passwordHash: string) {

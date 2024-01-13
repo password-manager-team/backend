@@ -9,14 +9,17 @@ class UserModel {
         passwordHint: string
     ) {
         try {
-            await this.postgresClient.query(
-                "INSERT INTO Users (email, password_hash, password_hint) VALUES ($1, $2, $3)",
+            const user = await this.postgresClient.query<{
+                id: string
+                email: string
+            }>(
+                "INSERT INTO Users (email, password_hash, password_hint) VALUES ($1, $2, $3) RETURNING id, email",
                 [email, passwordHash, passwordHint]
             )
-            return true
+            return user.rows[0] ?? null
         } catch (e) {
             console.error(e)
-            return false
+            return null
         }
     }
 
