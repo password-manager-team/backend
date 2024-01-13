@@ -9,10 +9,7 @@ class UserModel {
         passwordHint: string
     ) {
         try {
-            const res = await this.postgresClient.query<{
-                id: number
-                name: string
-            }>(
+            await this.postgresClient.query(
                 "INSERT into Users (email, password_hash, password_hint) VALUES ($1, $2, $3)",
                 [email, passwordHash, passwordHint]
             )
