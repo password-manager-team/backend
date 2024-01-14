@@ -7,6 +7,7 @@ import Redis from "./db/redis.js"
 import AuthController from "./controllers/authController.js"
 import AuthService from "./services/AuthService.js"
 import { Postgres } from "./db/postgres.js"
+import UserModel from "./models/userModel.js"
 
 const { REDIS_URL } = config
 
@@ -16,7 +17,7 @@ const postgresClient = await new Postgres({
     user: config.POSTGRES_USER,
     password: config.POSTGRES_PASSWORD,
     database: config.POSTGRES_DB,
-    port: parseInt(config.POSTGRES_PORT)
+    port: parseInt(config.POSTGRES_PORT),
 }).init()
 
 // Stores
@@ -24,6 +25,7 @@ export const sessionStore = new SessionStore(redisClient)
 
 // Models
 export const exampleModel = new ExampleModel(postgresClient)
+export const userModel = new UserModel(postgresClient)
 
 // Services
 export const exampleService = new ExampleService(exampleModel)

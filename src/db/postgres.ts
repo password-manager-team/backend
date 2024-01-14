@@ -1,30 +1,40 @@
-import pg from 'pg';
+import pg from "pg"
 
 export interface DBType {
-    host: string,
-    user: string,
-    password: string,
-    database: string,
+    host: string
+    user: string
+    password: string
+    database: string
     port: number
 }
 
 export class Postgres {
-    constructor(private db: DBType) {
-      this.init();
-    }
-  
+    constructor(private db: DBType) {}
+
     async init() {
-        const client = await this.getPool().connect();
-        const res = await client.query(`
-            CREATE TABLE IF NOT EXISTS TEST(
-                id serial not null primary key,
-                name varchar(32)
-            );
-            DELETE FROM TEST;
-            INSERT INTO TEST (name) values ('My name 1');
-            INSERT INTO TEST (name) values ('My name 2');
-        `);
-        return client;
+        const client = await this.getPool().connect()
+
+        const queryResults = await Promise.all([
+            client.query(`
+                CREATE TABLE IF NOT EXISTS Test(
+                    id SERIAL NOT NULL PRIMARY KEY,
+                    name VARCHAR(32)
+                );
+                DELETE FROM Test;
+                INSERT INTO Test (name) VALUES ('My name 1');
+                INSERT INTO Test (name) VALUES ('My name 2');
+            `),
+            client.query(`
+                CREATE TABLE IF NOT EXISTS Users(
+                    id SERIAL NOT NULL PRIMARY KEY,
+                    email VARCHAR(255) NOT NULL UNIQUE,
+                    password_hash VARCHAR(512) NOT NULL,
+                    password_hint VARCHAR(32) NOT NULL
+                );
+            `),
+        ])
+
+        return client
     }
 
     getPool() {
@@ -33,7 +43,7 @@ export class Postgres {
             user: this.db.user,
             password: this.db.password,
             port: this.db.port,
-            database: this.db.database
-        });
+            database: this.db.database,
+        })
     }
 }
