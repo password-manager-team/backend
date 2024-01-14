@@ -34,21 +34,19 @@ class SessionStore {
 
     /**
      * Sets session data for a given session ID.
-     * @returns Promise that resolves with the result of the operation,
-     * 1 if a new field is created,
-     * 0 if an existing field is updated,
-     * -1 if an error occurred.
+     * @returns Promise<boolean> which represents whether operation was successful or not
      */
     setSession(sessionID: string, data: SessionData) {
         try {
-            return this.client.hSet(
+            const status = this.client.hSet(
                 this.namespace,
                 sessionID,
                 JSON.stringify(data)
             )
+            return true
         } catch (e) {
             console.error("Unhandled Redis error:", e)
-            return Promise.resolve(-1)
+            return Promise.resolve(false)
         }
     }
 }
