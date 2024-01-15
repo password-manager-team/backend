@@ -17,7 +17,10 @@ class AuthController {
         const validationResult = schema.safeParse(req)
 
         if (!validationResult.success) {
-            return res.status(422).json({ error: "Invalid data" })
+            return res.status(422).json({
+                error: "Invalid data",
+                stacktrace: validationResult.error.issues,
+            })
         }
 
         const { email, passwordHash, passwordHint } = validationResult.data.body
@@ -48,7 +51,12 @@ class AuthController {
         const validationResult = schema.safeParse(req)
 
         if (!validationResult.success) {
-            return res.status(422).json({ error: "Invalid data" })
+            return res
+                .status(422)
+                .json({
+                    error: "Invalid data",
+                    stacktrace: validationResult.error.issues,
+                })
         }
 
         const { email, passwordHash } = validationResult.data.body
