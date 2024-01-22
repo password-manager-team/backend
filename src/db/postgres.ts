@@ -48,12 +48,11 @@ export class Postgres {
                   name VARCHAR(255) NULL,
                   domain VARCHAR(255) NOT NULL,
                   login VARCHAR(255) NOT NULL,
-                  password VARCHAR(255) NOT NULL,
-                  UNIQUE(folderID, domain, login)
+                  password VARCHAR(255) NOT NULL
                 );
                 CREATE INDEX IF NOT EXISTS idx_vaults_userID ON Vaults(userID);
                 CREATE INDEX IF NOT EXISTS idx_folders_vaultID ON Folders(vaultID);
-                CREATE INDEX IF NOT EXISTS dx_items_folderID ON Items(folderID);
+                CREATE INDEX IF NOT EXISTS dx_items_folderID ON Items(folderID) Include (name, domain, login, password);
             `),
 
             client.query(`
