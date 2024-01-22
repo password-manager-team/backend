@@ -29,7 +29,7 @@ export const userModel = new UserModel(postgresClient)
 
 // Services
 export const exampleService = new ExampleService(exampleModel)
-export const authService = new AuthService(exampleModel, sessionStore)
+export const authService = new AuthService(userModel, sessionStore)
 
 // Controllers
 export const exampleController = new ExampleController(exampleService)
